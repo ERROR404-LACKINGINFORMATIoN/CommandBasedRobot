@@ -17,13 +17,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
  * edit -> run -> telemetry works end to end, then start replacing this with your own code.
  */
 public class RobotContainer {
-  private final Timer timer = new Timer();
   private long counter = 0;
   private final int ControllerPort = 0;
   CommandXboxController robotController = new CommandXboxController(ControllerPort);
 
   public RobotContainer() {
-    timer.start();
     CommandTankDrive drivetrain = new CommandTankDrive();
     drivetrain.setDefaultCommand(
         Commands.run(
@@ -44,18 +42,5 @@ public class RobotContainer {
   public void robotPeriodic() {
     // Run the command scheduler so subsystems and commands you add keep working.
     CommandScheduler.getInstance().run();
-
-    // A counter that ticks up once per loop.
-    counter++;
-    Logger.recordOutput("Counter", counter);
-
-    // A pose that drives in a circle around the middle of the field.
-    double seconds = timer.get();
-    double radius = 2.0;
-    double omega = 1.0;
-    double x = 4.0 + radius * Math.cos(omega * seconds);
-    double y = 4.0 + radius * Math.sin(omega * seconds);
-    Rotation2d heading = new Rotation2d(omega * seconds + Math.PI / 2);
-    Logger.recordOutput("RobotPose", new Pose2d(x, y, heading));
   }
 }
