@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../../../.."
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic",
+		"java.gradle.buildServer.enabled": "off",
+		"java.import.gradle.annotationProcessing.enabled": false
+	}
+}
