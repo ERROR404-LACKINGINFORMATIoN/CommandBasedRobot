@@ -13,8 +13,8 @@ public class Turret extends SubsystemBase {
 
   public Turret() {
 
-    SparkMaxConfig WristConfig = new SparkMaxConfig();
+    SparkMaxConfig turretConfig = new SparkMaxConfig();
     turretMotor.configure(
-        WristConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        turretConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 }

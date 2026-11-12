@@ -1,12 +1,9 @@
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
-import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import org.littletonrobotics.junction.Logger;
 
 /**
  * The robot's behavior lives here. {@link Robot} handles the AdvantageKit logging setup and calls
@@ -20,24 +17,39 @@ public class RobotContainer {
   private long counter = 0;
   private final int ControllerPort = 0;
   CommandXboxController robotController = new CommandXboxController(ControllerPort);
+  Turret turret = new Turret();
+  CommandTankDrive drivetrain = new CommandTankDrive();
+  Wrist wrist = new Wrist();
 
   public RobotContainer() {
-    CommandTankDrive drivetrain = new CommandTankDrive();
+
     drivetrain.setDefaultCommand(
         Commands.run(
             () ->
                 drivetrain.drivetrainTank.tankDrive(
                     robotController.getLeftY(), robotController.getRightY()),
             drivetrain));
-    Wrist wrist = new Wrist();
-    robotController.povUp().whileTrue(
+    robotController
+        .povUp()
+        .whileTrue(
             Commands.startEnd(
                 () -> wrist.wristMotor.set(.1), () -> wrist.wristMotor.set(0), wrist));
-    Turret turret = new Turret();
-    robotController.povLeft().whileTrue(
+    robotController
+        .povDown()
+        .whileTrue(
+            Commands.startEnd(
+                () -> wrist.wristMotor.set(-.1), () -> wrist.wristMotor.set(0), wrist));
+    robotController
+        .povLeft()
+        .whileTrue(
             Commands.startEnd(
                 () -> turret.turretMotor.set(.1), () -> turret.turretMotor.set(0), turret));
-            }
+    robotController
+        .povRight()
+        .whileTrue(
+            Commands.startEnd(
+                () -> turret.turretMotor.set(-.1), () -> turret.turretMotor.set(0), turret));
+  }
   /** Called every loop while the robot is running. Add your own logic here. */
   public void robotPeriodic() {
     // Run the command scheduler so subsystems and commands you add keep working.
