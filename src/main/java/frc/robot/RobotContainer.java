@@ -48,7 +48,11 @@ public class RobotContainer {
         .whileTrue(
             Commands.startEnd(
                 () -> turret.turretMotor.set(-.3), () -> turret.turretMotor.set(0), turret));
-  }
+  robotController.a().whileTrue(Commands.startEnd(()->launcher.currentSolenoid.set(true),()->launcher.currentSolenoid.set(false),launcher));
+  if (robotController.b().getAsBoolean()){
+    launcher.Switch();
+    }
+    }
   /** Called every loop while the robot is running. Add your own logic here. */
   public void robotPeriodic() {
     // Run the command scheduler so subsystems and commands you add keep working.
