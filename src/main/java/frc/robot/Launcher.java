@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj2.command.Commands;
 public class Launcher extends SubsystemBase {
     int index=1;
     PneumaticsModuleType moduleType=PneumaticsModuleType.REVPH;;
-    Solenoid solenoid1= new Solenoid( moduleType,  0);
-    Solenoid solenoid2= new Solenoid( moduleType,  1);
-    Solenoid solenoid3= new Solenoid( moduleType,  2);
-    Solenoid solenoid4= new Solenoid( moduleType,  3);
-    Solenoid solenoid5= new Solenoid( moduleType,  4);
+    Solenoid solenoid1= new Solenoid(0, moduleType,  0);
+    Solenoid solenoid2= new Solenoid(0, moduleType,  1);
+    Solenoid solenoid3= new Solenoid(0, moduleType,  2);
+    Solenoid solenoid4= new Solenoid(0, moduleType,  3);
+    Solenoid solenoid5= new Solenoid(0, moduleType,  4);
     public final PneumaticHub hub = new PneumaticHub(1);
     Solenoid currentSolenoid=solenoid1;
     public Launcher(){
