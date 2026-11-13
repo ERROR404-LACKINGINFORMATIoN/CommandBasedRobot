@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -19,7 +20,8 @@ public class RobotContainer {
   Turret turret = new Turret();
   CommandTankDrive drivetrain = new CommandTankDrive();
   Wrist wrist = new Wrist();
-    Launcher launcher=new Launcher();
+  Launcher launcher = new Launcher();
+
   public RobotContainer() {
 
     drivetrain.setDefaultCommand(
@@ -43,16 +45,22 @@ public class RobotContainer {
         .whileTrue(
             Commands.startEnd(
                 () -> turret.turretMotor.set(.3), () -> turret.turretMotor.set(0), turret));
+
     robotController
         .povRight()
         .whileTrue(
             Commands.startEnd(
                 () -> turret.turretMotor.set(-.3), () -> turret.turretMotor.set(0), turret));
-  robotController.a().whileTrue(Commands.startEnd(()->launcher.currentSolenoid.set(true),()->launcher.currentSolenoid.set(false),launcher));
-  if (robotController.b().getAsBoolean()){
-    launcher.Switch();
-    }
-    }
+                Command shootSequence = Commands.sequence(
+    Commands.runOnce(() -> launcher.currentSolenoid.set(true)), // Start motor
+    Commands.waitSeconds(0.05),                              // Wait 1.5s for spin-up
+    Commands.runOnce(() -> launcher.currentSolenoid.set(false))       // Feed game piece
+);
+    robotController.a().onTrue(shootSequence);
+;   robotController.b().onTrue(Commands.runOnce(()->launcher.Switch(), launcher));
+
+
+  }
   /** Called every loop while the robot is running. Add your own logic here. */
   public void robotPeriodic() {
     // Run the command scheduler so subsystems and commands you add keep working.

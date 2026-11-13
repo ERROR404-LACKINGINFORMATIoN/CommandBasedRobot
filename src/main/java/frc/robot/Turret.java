@@ -6,7 +6,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
 public class Turret extends SubsystemBase {
 
   public SparkMax turretMotor = new SparkMax(7, MotorType.kBrushless);
@@ -15,6 +15,8 @@ public class Turret extends SubsystemBase {
 
     SparkMaxConfig turretConfig = new SparkMaxConfig();
     turretMotor.configure(
-        turretConfig.inverted(true), ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-}
+        turretConfig.inverted(true),
+        ResetMode.kResetSafeParameters,
+        PersistMode.kPersistParameters);
+  }
 }
