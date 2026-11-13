@@ -34,12 +34,5 @@ public class Launcher extends SubsystemBase {
             currentSolenoid=solenoid1;
         }
     }
-    public void StopRobot(){
-        Commands.run(()->currentSolenoid.set(false));
-        //Commands.run(()->currentSolenoid.set(false))
-    }
-    public void Start(){
-        Commands.run(()->currentSolenoid.set(true));
-    }
-    }
+}
 
