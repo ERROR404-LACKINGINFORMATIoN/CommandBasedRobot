@@ -14,13 +14,12 @@ import org.littletonrobotics.junction.Logger;
  * edit -> run -> telemetry works end to end, then start replacing this with your own code.
  */
 public class RobotContainer {
-  private long counter = 0;
   private final int ControllerPort = 0;
   CommandXboxController robotController = new CommandXboxController(ControllerPort);
   Turret turret = new Turret();
   CommandTankDrive drivetrain = new CommandTankDrive();
   Wrist wrist = new Wrist();
-
+    Launcher launcher=new Launcher();
   public RobotContainer() {
 
     drivetrain.setDefaultCommand(
@@ -33,22 +32,22 @@ public class RobotContainer {
         .povUp()
         .whileTrue(
             Commands.startEnd(
-                () -> wrist.wristMotor.set(.1), () -> wrist.wristMotor.set(0), wrist));
+                () -> wrist.wristMotor.set(.3), () -> wrist.wristMotor.set(0), wrist));
     robotController
         .povDown()
         .whileTrue(
             Commands.startEnd(
-                () -> wrist.wristMotor.set(-.1), () -> wrist.wristMotor.set(0), wrist));
+                () -> wrist.wristMotor.set(-.3), () -> wrist.wristMotor.set(0), wrist));
     robotController
         .povLeft()
         .whileTrue(
             Commands.startEnd(
-                () -> turret.turretMotor.set(.1), () -> turret.turretMotor.set(0), turret));
+                () -> turret.turretMotor.set(.3), () -> turret.turretMotor.set(0), turret));
     robotController
         .povRight()
         .whileTrue(
             Commands.startEnd(
-                () -> turret.turretMotor.set(-.1), () -> turret.turretMotor.set(0), turret));
+                () -> turret.turretMotor.set(-.3), () -> turret.turretMotor.set(0), turret));
   }
   /** Called every loop while the robot is running. Add your own logic here. */
   public void robotPeriodic() {

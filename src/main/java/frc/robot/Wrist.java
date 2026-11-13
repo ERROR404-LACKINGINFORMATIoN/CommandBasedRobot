@@ -1,5 +1,4 @@
 package frc.robot;
-
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -15,6 +14,6 @@ public class Wrist extends SubsystemBase {
 
     SparkMaxConfig WristConfig = new SparkMaxConfig();
     wristMotor.configure(
-        WristConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        WristConfig.inverted(true), ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 }
