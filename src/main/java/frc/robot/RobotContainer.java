@@ -1,10 +1,13 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+
+
 import org.littletonrobotics.junction.Logger;
+
 
 /**
  * The robot's behavior lives here. {@link Robot} handles the AdvantageKit logging setup and calls
@@ -22,8 +25,8 @@ public class RobotContainer {
   Wrist wrist = new Wrist();
   Launcher launcher = new Launcher();
 
-  public RobotContainer() {
 
+  public RobotContainer() {
     drivetrain.setDefaultCommand(
         Commands.run(
             () ->
@@ -46,24 +49,26 @@ public class RobotContainer {
             Commands.startEnd(
                 () -> turret.turretMotor.set(.3), () -> turret.turretMotor.set(0), turret));
 
+
     robotController
         .povRight()
         .whileTrue(
             Commands.startEnd(
                 () -> turret.turretMotor.set(-.3), () -> turret.turretMotor.set(0), turret));
-                Command shootSequence = Commands.sequence(
-    Commands.runOnce(() -> launcher.currentSolenoid.set(true)), // Start motor
-    Commands.waitSeconds(0.05),                              // Wait 1.5s for spin-up
-    Commands.runOnce(() -> launcher.currentSolenoid.set(false))       // Feed game piece
-);
-    robotController.a().onTrue(shootSequence);
-;   robotController.b().onTrue(Commands.runOnce(()->launcher.Switch(), launcher));
 
 
-  }
-  /** Called every loop while the robot is running. Add your own logic here. */
-  public void robotPeriodic() {
-    // Run the command scheduler so subsystems and commands you add keep working.
-    CommandScheduler.getInstance().run();
+    robotController.a().onTrue(launcher.shootSequence());
+    ;
+    robotController.b().onTrue(Commands.runOnce(() -> launcher.Switch(), launcher));
+    //Trigger isPressureHighEnough = new Trigger(() -> launcher.phCompressor.getPressure() > 40.0);
+    //isPressureHighEnough.onTrue();
+  	// m_led.setData(m_buffer);
+
+
   }
 }
+
+
+
+
+
