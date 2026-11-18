@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.subsystems.CommandTankDrive;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * The robot's behavior lives here. {@link Robot} handles the AdvantageKit logging setup and calls
@@ -25,7 +26,7 @@ public class RobotContainer {
   CommandTankDrive drivetrain = new CommandTankDrive();
   Wrist wrist = new Wrist();
   Launcher launcher = new Launcher();
-
+  Led led=new Led();
   public RobotContainer() {
     drivetrain.setDefaultCommand(
         Commands.run(
@@ -58,8 +59,9 @@ public class RobotContainer {
     robotController.a().onTrue(launcher.shootSequence());
     ;
     robotController.b().onTrue(Commands.runOnce(() -> launcher.Switch(), launcher));
-    // Trigger isPressureHighEnough = new Trigger(() -> launcher.phCompressor.getPressure() > 40.0);
-    // isPressureHighEnough.onTrue();
-    // m_led.setData(m_buffer);
+    robotController.b().onTrue(led.runPattern());
+    robotController.leftBumper().onTrue(led.runPattern());
+    Trigger isPressureHighEnough = new Trigger(() -> launcher.phCompressor.getPressure() > 40.0);
+    isPressureHighEnough.onTrue((led.runGradient()));
   }
 }
