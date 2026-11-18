@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -19,7 +19,6 @@ public class CommandTankDrive extends SubsystemBase {
   SparkMax rightmotorrobot = new SparkMax(rightMotor1, MotorType.kBrushless);
   SparkMax rightmotorrobotv = new SparkMax(rightMotor2, MotorType.kBrushless);
   public DifferentialDrive drivetrainTank = new DifferentialDrive(leftmotorrobot, rightmotorrobot);
-
   public CommandTankDrive() {
 
     SparkMaxConfig globalConfig = new SparkMaxConfig();

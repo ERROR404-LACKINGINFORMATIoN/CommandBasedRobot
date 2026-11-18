@@ -1,6 +1,6 @@
 package frc.robot;
 
-
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.ArrayList;
-import edu.wpi.first.wpilibj.Compressor;
+
 public class Launcher extends SubsystemBase {
   PneumaticsModuleType moduleType = PneumaticsModuleType.REVPH;
   public final PneumaticHub hub = new PneumaticHub(1);
@@ -17,10 +17,9 @@ public class Launcher extends SubsystemBase {
   public final Solenoid solenoid3 = hub.makeSolenoid(2);
   public final Solenoid solenoid4 = hub.makeSolenoid(3);
   public final Solenoid solenoid5 = hub.makeSolenoid(4);
-  public final Compressor phCompressor=hub.makeCompressor();
+  public final Compressor phCompressor = hub.makeCompressor();
   Solenoid currentSolenoid = solenoid1;
   ArrayList<Solenoid> solenoidList = new ArrayList<Solenoid>(5);
-
 
   public Launcher() {
     solenoidList.add(solenoid1);
@@ -30,12 +29,10 @@ public class Launcher extends SubsystemBase {
     solenoidList.add(solenoid5);
   }
 
-
   // buttons don't matter
   public void Switch() {
     currentSolenoid = solenoidList.get((solenoidList.indexOf(currentSolenoid) + 1) % 5);
   }
-
 
   public Command shootSequence() {
     return Commands.sequence(
@@ -45,8 +42,3 @@ public class Launcher extends SubsystemBase {
         );
   }
 }
-
-
-
-
-
