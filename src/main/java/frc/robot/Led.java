@@ -14,7 +14,7 @@ public class Led {
        AddressableLED m_led = new AddressableLED(9);
 
 
-   AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(50);
+   AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(94);
 
 
 
