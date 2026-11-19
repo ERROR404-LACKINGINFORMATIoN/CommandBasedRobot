@@ -1,15 +1,12 @@
 package frc.robot;
-//look into /*https://docs.advantagekit.org/getting-started/template-projects/spark-swerve-template
+// look into /*https://docs.advantagekit.org/getting-started/template-projects/spark-swerve-template
 // and
 // https://github.com/Mechanical-Advantage/AdvantageKit/tree/main/template_projects/sources/spark_swerve */
-import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.CommandTankDrive;
 import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * The robot's behavior lives here. {@link Robot} handles the AdvantageKit logging setup and calls
@@ -26,7 +23,8 @@ public class RobotContainer {
   CommandTankDrive drivetrain = new CommandTankDrive();
   Wrist wrist = new Wrist();
   Launcher launcher = new Launcher();
-  Led led=new Led();
+  Led led = new Led();
+
   public RobotContainer() {
     drivetrain.setDefaultCommand(
         Commands.run(
@@ -57,7 +55,6 @@ public class RobotContainer {
                 () -> turret.turretMotor.set(-.3), () -> turret.turretMotor.set(0), turret));
 
     robotController.a().onTrue(launcher.shootSequence());
-    ;
     robotController.b().onTrue(Commands.runOnce(() -> launcher.Switch(), launcher));
     robotController.b().onTrue(led.runPattern());
     robotController.leftBumper().onTrue(led.runPattern());
