@@ -26,6 +26,7 @@ public class RobotContainer {
   Led led = new Led();
 
   public RobotContainer() {
+
     drivetrain.setDefaultCommand(
         Commands.run(
             () ->
@@ -56,8 +57,8 @@ public class RobotContainer {
 
     robotController.a().onTrue(launcher.shootSequence());
     robotController.b().onTrue(Commands.runOnce(() -> launcher.Switch(), launcher));
-    robotController.b().onTrue(led.runPattern());
-    robotController.leftBumper().onTrue(led.runPattern());
+    robotController.y().onTrue(led.runPattern());
+    robotController.leftTrigger().onTrue(led.runScrollGradiant());
     Trigger isPressureHighEnough = new Trigger(() -> launcher.phCompressor.getPressure() > 40.0);
     isPressureHighEnough.onTrue((led.runGradient()));
   }
